@@ -9,14 +9,11 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-
 # Enter city
 city = input("Enter the name of the city: ")
-
 # Weather API
 API_KEY = "68fef74e4cda43e2be6171030263010"
 url = "https://api.weatherapi.com/v1/forecast.json"
-
 params = {
     "key": API_KEY,
     "q": city,
@@ -25,9 +22,7 @@ params = {
 response = requests.get(url, params=params)
 
 if response.status_code == 200:
-
     weatherDict = response.json()
-
     # Get weather information
     city_name = weatherDict['location']['name']
     temperature = weatherDict['current']['temp_c']
@@ -42,7 +37,6 @@ if response.status_code == 200:
 
     # Display weather report
     print("\n----- YOUR WEATHER REPORT -----")
-
     print(f"City: {city_name}")
     print(f"Temperature: {temperature}°C")
     print(f"Local Date and Time: {localtime}")
@@ -51,21 +45,21 @@ if response.status_code == 200:
     print(f"Humidity: {humidity}%")
     print(f"Chance of Rain: {chance_of_rain}%")
     print(f"Will it rain? {rain_status}")
+    print(f"Thank you!")
 
     # Voice assistant report
     voice_report = (
-        f"Hello! Here is the weather report for {city_name}. "
+        f"Good Morning! Here is the weather report for {city_name}. "
         f"Today is {day}. "
         f"The current temperature is {temperature} degrees Celsius. "
         f"The weather condition is {condition}. "
         f"Humidity is {humidity} percent. "
         f"The chance of rain is {chance_of_rain} percent. "
         f"Will it rain today? {rain_status}."
+        f"Thank You!"
     )
-
     print("\nVoice Assistant: Speaking weather report...")
     speak(voice_report)
-
 else:
     print("Error: City not found or API request failed.")
     speak("Sorry, city not found. Please enter a valid city name.")
